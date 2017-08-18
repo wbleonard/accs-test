@@ -10,12 +10,12 @@
             Integer hitsCount = (Integer) application.getAttribute("hitCounter");
             if (hitsCount == null || hitsCount == 0) {
                 /* First visit */
-                System.out.println("First fisit");
                 hitsCount = 1;
+                System.out.println("Visit number " + hitsCount + " from " + request.getRemoteAddr());
             } else {
                 /* Return visit */
                 hitsCount++;
-                System.out.println("Return visit number " + hitsCount);
+                System.out.println("Visit number " + hitsCount + " from " + request.getRemoteAddr());
             }
             application.setAttribute("hitCounter", hitsCount);
         %>
@@ -25,9 +25,8 @@
     </center>
     <hr>
     <p>
-        Requested by Client IP:    <b><%= request.getRemoteAddr()%></b><br/>
-        Requested by Client Host:  <b><%= request.getRemoteHost()%></b><br/>
-        Forwarded for:             <b><%= request.getHeader("x-forwarded-for")%></b><br/>
+        Requested by Client:    <b><%= request.getRemoteAddr()%></b><br/>
+        Forwarded for:             <b><%= request.getHeader("X-Forwarded-For")%></b><br/>
         Served From Server:   <b><%= request.getServerName()%></b><br/>
         Server Port Number:   <b><%= request.getServerPort()%></b><br/>
         Executed From Server: <b><%= java.net.InetAddress.getLocalHost().getHostName()%></b><br/>
